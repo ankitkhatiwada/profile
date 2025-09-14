@@ -528,10 +528,10 @@ export default function App() {
             <CardContent className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
               <p>Currently open to co-op, internship, and entry-level opportunities in Cybersecurity & Networking.</p>
               <div className="flex items-center gap-3">
-                <Mail className="h-4 w-4" /> ankit@example.com
+                <Mail className="h-4 w-4" /> ankitkhatiwada09@gmail.com
               </div>
               <div className="flex items-center gap-3">
-                <Linkedin className="h-4 w-4" /> linkedin.com/in/ankit-khatiwada
+                <Linkedin className="h-4 w-4" /> inkedin.com/in/ankit-khatiwada-4916bb278
               </div>
               <div className="flex items-center gap-3">
                 <Github className="h-4 w-4" /> github.com/ankit-khatiwada
