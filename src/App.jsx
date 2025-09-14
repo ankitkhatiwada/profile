@@ -549,7 +549,7 @@ export default function App() {
             <a className="hover:text-gray-900 dark:hover:text-white" href="https://github.com/ankit-khatiwada" aria-label="GitHub">
               <Github className="h-4 w-4" />
             </a>
-            <a className="hover:text-gray-900 dark:hover:text-white" href="https://linkedin.com/in/ankit-khatiwada" aria-label="LinkedIn">
+            <a className="hover:text-gray-900 dark:hover:text-white" href="https://www.linkedin.com/in/ankit-khatiwada-4916bb278/" aria-label="LinkedIn">
               <Linkedin className="h-4 w-4" />
             </a>
           </div>
