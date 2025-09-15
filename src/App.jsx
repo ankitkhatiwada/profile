@@ -5,32 +5,39 @@ import {
   Menu, X, Shield, Rocket, GraduationCap, Sparkles, Link as LinkIcon,
 } from "lucide-react";
 
-
 /* tiny UI */
 const cx = (...classes) => classes.filter(Boolean).join(" ");
 const Button = ({ asChild, href, children, className="", variant="default", size="md", onClick, type="button", ...props }) => {
   const base = "inline-flex items-center gap-2 rounded-2xl font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2";
   const sizes = { sm:"px-3 py-1.5 text-sm", md:"px-4 py-2 text-sm", lg:"px-5 py-2.5", icon:"p-2" };
   const variants = {
-    default: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-600",
-outline: "border border-gray-300 hover:bg-gray-50 text-gray-900 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-gray-800",
-ghost: "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
+    // Monochrome variants
+    default: "bg-black text-white hover:bg-neutral-800 focus:ring-black",
+    outline: "border border-black text-black hover:bg-black hover:text-white focus:ring-black",
+    ghost: "text-neutral-700 hover:bg-neutral-100",
   };
   const classes = cx(base, sizes[size]||sizes.md, variants[variant]||variants.default, className);
   return asChild && href
     ? <a href={href} className={classes} onClick={onClick} {...props}>{children}</a>
     : <button type={type} className={classes} onClick={onClick} {...props}>{children}</button>;
 };
-const Card        = ({className="", children}) => <div className={cx("rounded-2xl border border-gray-200 bg-white/80 shadow-sm", className)}>{children}</div>;
+
+const Card        = ({className="", children}) =>
+  <div className={cx("rounded-2xl border border-neutral-900 bg-white shadow-sm", className)}>{children}</div>;
 const CardHeader  = ({className="", children}) => <div className={cx("px-5 pt-5", className)}>{children}</div>;
 const CardTitle   = ({className="", children}) => <h3 className={cx("text-lg font-semibold", className)}>{children}</h3>;
 const CardContent = ({className="", children}) => <div className={cx("px-5 pb-5", className)}>{children}</div>;
+
 const Badge = ({children, variant="secondary", className=""}) => {
-  const styles = { secondary:"bg-gray-100 text-gray-800", outline:"border border-gray-300 text-gray-700" };
+  const styles = {
+    secondary:"bg-neutral-100 text-black",
+    outline:"border border-black text-black"
+  };
   return <span className={cx("inline-flex items-center rounded-xl px-2.5 py-1 text-xs", styles[variant], className)}>{children}</span>;
 };
-const Input   = (p) => <input {...p}   className="w-full rounded-xl border border-gray-300 bg-white/90 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-600" />;
-const Textarea= (p) => <textarea {...p} className="w-full rounded-xl border border-gray-300 bg-white/90 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-600" />;
+
+const Input    = (p) => <input {...p} className="w-full rounded-xl border border-neutral-900 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black" />;
+const Textarea = (p) => <textarea {...p} className="w-full rounded-xl border border-neutral-900 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black" />;
 
 /* data */
 const SECTIONS = [
@@ -94,11 +101,12 @@ const SKILLS = [
 /* components */
 const SectionHeader = ({ eyebrow, title, icon: Icon }) => (
   <div className="mb-8 flex items-center gap-3">
-    <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-600">
+    {/* Replaced blue badge with monochrome token */}
+    <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-neutral-900 text-white">
       <Icon className="h-5 w-5" />
     </div>
     <div>
-      <p className="text-xs uppercase tracking-wider text-gray-500">{eyebrow}</p>
+      <p className="text-xs uppercase tracking-wider text-neutral-500">{eyebrow}</p>
       <h2 className="text-2xl font-semibold leading-tight md:text-3xl">{title}</h2>
     </div>
   </div>
@@ -121,73 +129,66 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-gray-50 text-gray-900">
+    <div className="min-h-screen bg-white text-black">
       {/* header */}
-      <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/90 backdrop-blur shadow-sm">
+      <header className="sticky top-0 z-40 w-full border-b border-neutral-800 bg-black text-white shadow-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between p-4">
-          <a href="#home" className="flex items-center gap-2">
-            <div className="relative">
-              <motion.div className="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-blue-400/40 via-fuchsia-400/30 to-cyan-400/30 blur"
-                animate={{ opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 6, repeat: Infinity }}/>
-              <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-white shadow">
-                <Sparkles className="h-5 w-5" />
-              </div>
+          <a href="#home" className="flex items-center gap-3">
+            {/* Simplified mark to monochrome */}
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-black shadow">
+              <Sparkles className="h-5 w-5" />
             </div>
             <span className="text-sm font-semibold tracking-wide">Ankit Khatiwada</span>
           </a>
 
           <nav className="hidden items-center gap-1 md:flex">
             {SECTIONS.map((s) => (
-              <a key={s.id} href={`#${s.id}`} className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
+              <a key={s.id} href={`#${s.id}`} className="px-3 py-2 text-sm font-medium text-white/80 hover:text-white">
                 {s.label}
               </a>
             ))}
           </nav>
 
-          <Button variant="outline" size="icon" className="md:hidden" aria-label="Open menu" onClick={() => setMobileOpen(true)}>
+          <Button variant="outline" size="icon" className="md:hidden border-white text-white hover:bg-white hover:text-black" aria-label="Open menu" onClick={() => setMobileOpen(true)}>
             <Menu className="h-5 w-5" />
           </Button>
         </div>
 
         {/* mobile drawer */}
         {mobileOpen && (
-  <>
-    {/* backdrop */}
-    <div
-      className="fixed inset-0 z-[60] bg-transparent"
-      onClick={() => setMobileOpen(false)}
-    />
-
-    {/* drawer */}
-    <motion.aside
-      initial={{ x: "100%" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100%" }}
-      transition={{ type: "spring", stiffness: 260, damping: 30 }}
-      className="fixed right-0 top-0 z-[70] h-screen w-80 max-w-[85vw] bg-black text-white shadow-2xl"
-    >
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-        <h3 className="text-lg font-semibold">Navigate</h3>
-        <Button variant="ghost" size="icon" aria-label="Close menu" onClick={() => setMobileOpen(false)}>
-          <X className="h-5 w-5" />
-        </Button>
-      </div>
-      <nav className="divide-y divide-gray-700">
-        {SECTIONS.map((s) => (
-          <a
-            key={s.id}
-            href={`#${s.id}`}
-            onClick={() => setMobileOpen(false)}
-            className="block px-5 py-4 text-base text-gray-200 hover:bg-gray-800 hover:text-white"
-          >
-            {s.label}
-          </a>
-        ))}
-      </nav>
-    </motion.aside>
-  </>
-)}
-
+          <>
+            <div
+              className="fixed inset-0 z-[60] bg-black/60"
+              onClick={() => setMobileOpen(false)}
+            />
+            <motion.aside
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
+              className="fixed right-0 top-0 z-[70] h-screen w-80 max-w-[85vw] bg-black text-white shadow-2xl"
+            >
+              <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
+                <h3 className="text-lg font-semibold">Navigate</h3>
+                <Button variant="ghost" size="icon" aria-label="Close menu" onClick={() => setMobileOpen(false)}>
+                  <X className="h-5 w-5 text-white" />
+                </Button>
+              </div>
+              <nav className="divide-y divide-neutral-800">
+                {SECTIONS.map((s) => (
+                  <a
+                    key={s.id}
+                    href={`#${s.id}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-5 py-4 text-base text-neutral-200 hover:bg-neutral-800 hover:text-white"
+                  >
+                    {s.label}
+                  </a>
+                ))}
+              </nav>
+            </motion.aside>
+          </>
+        )}
       </header>
 
       {/* hero */}
@@ -196,10 +197,10 @@ export default function App() {
           <div>
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
               className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-              Hi, I’m <span className="text-blue-600">Ankit Khatiwada</span>
+              Hi, I’m <span className="underline decoration-black/30 underline-offset-4">Ankit Khatiwada</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.6 }}
-              className="mt-4 text-base leading-relaxed text-gray-600">
+              className="mt-4 text-base leading-relaxed text-neutral-600">
               Cybersecurity and Networking student at the Canadian College of Technology and Business. I’m passionate
               about ethical hacking, secure system design, and hands-on network defense.
             </motion.p>
@@ -207,22 +208,22 @@ export default function App() {
               className="mt-6 flex flex-wrap items-center gap-3">
               <Button asChild href="#projects"><span><Rocket className="h-4 w-4" /> Explore Projects</span></Button>
               <Button asChild variant="outline" href="#contact"><span><Mail className="h-4 w-4" /> Contact</span></Button>
-              <Button asChild variant="ghost" href="/resume.pdf"><span><Download className="h-4 w-4" /> Download Résumé</span></Button>
+              <Button asChild variant="ghost" href="/Ankit_Khatiwada_Resume.pdf"><span><Download className="h-4 w-4" /> Download Résumé</span></Button>
             </motion.div>
 
-            <div className="mt-6 flex gap-3 text-gray-500">
-              <a className="hover:text-gray-900" href="https://github.com/ankitkhatiwada" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Github className="h-5 w-5" /></a>
-              <a className="hover:text-gray-900" href="https://www.linkedin.com/in/ankit-khatiwada-4916bb278" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin className="h-5 w-5" /></a>
-              <a className="hover:text-gray-900" href="mailto:ankitkhatiwada09@gmail.com" aria-label="Email"><Mail className="h-5 w-5" /></a>
+            <div className="mt-6 flex gap-3 text-neutral-500">
+              <a className="hover:text-black" href="https://github.com/ankitkhatiwada" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Github className="h-5 w-5" /></a>
+              <a className="hover:text-black" href="https://www.linkedin.com/in/ankit-khatiwada-4916bb278" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin className="h-5 w-5" /></a>
+              <a className="hover:text-black" href="mailto:ankitkhatiwada09@gmail.com" aria-label="Email"><Mail className="h-5 w-5" /></a>
             </div>
           </div>
 
           <div className="relative">
+            {/* Replaced colorful gradient with subtle outline + white tile */}
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}
-              className="relative aspect-square w-full overflow-hidden rounded-3xl border border-gray-200 bg-gradient-to-tr from-blue-500/15 via-fuchsia-300/15 to-cyan-300/15 p-1 shadow-xl">
-              <div className="absolute -inset-6 animate-[spin_12s_linear_infinite] rounded-[3rem] bg-[conic-gradient(var(--tw-gradient-stops))] opacity-40 blur-2xl" />
-              <div className="relative z-10 grid h-full place-items-center rounded-3xl bg-white/80 p-6 backdrop-blur">
-                <Shield className="h-24 w-24 opacity-80" />
+              className="relative aspect-square w-full overflow-hidden rounded-3xl border border-neutral-900 p-1 shadow-xl">
+              <div className="relative z-10 grid h-full place-items-center rounded-3xl bg-white p-6">
+                <Shield className="h-24 w-24 text-neutral-800" />
               </div>
             </motion.div>
           </div>
@@ -235,7 +236,7 @@ export default function App() {
         <div className="grid gap-6 md:grid-cols-3">
           <Card className="md:col-span-2">
             <CardHeader><CardTitle>Who I am</CardTitle></CardHeader>
-            <CardContent className="space-y-4 text-sm leading-relaxed text-gray-600">
+            <CardContent className="space-y-4 text-sm leading-relaxed text-neutral-700">
               <p>I’m a cybersecurity student with hands-on experience in vulnerability assessments, penetration testing, and secure web server deployment. I enjoy tackling challenges that combine technical depth with problem solving.</p>
               <p>My recent focus has been on practical labs at CCTB — working with Kali Linux, Cisco Packet Tracer, and security tools to simulate real-world attack and defense scenarios.</p>
             </CardContent>
@@ -264,13 +265,13 @@ export default function App() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="mb-4 text-sm text-gray-600">{p.blurb}</p>
+                <p className="mb-4 text-sm text-neutral-700">{p.blurb}</p>
                 <div className="mb-4 flex flex-wrap gap-2">
                   {p.tags.map((t) => (<Badge key={t} variant="outline" className="rounded-xl">{t}</Badge>))}
                 </div>
                 <div className="flex items-center gap-3">
-                  <Button size="sm" asChild href={p.href}><span>Live <ExternalLink className="ml-2 h-4 w-4" /></span></Button>
-                  <Button size="sm" variant="outline" asChild href={p.repo}><span>Code <LinkIcon className="ml-2 h-4 w-4" /></span></Button>
+                  {/* <Button size="sm" asChild href={p.href}><span>Live <ExternalLink className="ml-2 h-4 w-4" /></span></Button>
+                  <Button size="sm" variant="outline" asChild href={p.repo}><span>Code <LinkIcon className="ml-2 h-4 w-4" /></span></Button> */}
                 </div>
               </CardContent>
             </Card>
@@ -291,7 +292,7 @@ export default function App() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="list-inside list-disc space-y-2 text-sm text-gray-600">
+                <ul className="list-inside list-disc space-y-2 text-sm text-neutral-700">
                   {e.points.map((pt, i) => (<li key={i}>{pt}</li>))}
                 </ul>
               </CardContent>
@@ -335,7 +336,7 @@ export default function App() {
 
           <Card>
             <CardHeader><CardTitle>Details</CardTitle></CardHeader>
-            <CardContent className="space-y-3 text-sm text-gray-600">
+            <CardContent className="space-y-3 text-sm text-neutral-700">
               <p>Currently open to co-op, internship, and entry-level opportunities in Cybersecurity & Networking.</p>
               <a href="mailto:ankitkhatiwada09@gmail.com" className="flex items-center gap-3 hover:underline"><Mail className="h-4 w-4" /><span>ankitkhatiwada09@gmail.com</span></a>
               <a href="https://www.linkedin.com/in/ankit-khatiwada-4916bb278" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:underline"><Linkedin className="h-4 w-4" /><span>linkedin.com/in/ankit-khatiwada-4916bb278</span></a>
@@ -346,12 +347,12 @@ export default function App() {
       </section>
 
       {/* footer */}
-      <footer className="border-t border-gray-200">
+      <footer className="border-t border-neutral-200">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 md:flex-row">
-          <p className="text-xs text-gray-500">© {year} Ankit Khatiwada. All rights reserved.</p>
-          <div className="flex items-center gap-3 text-gray-500">
-            <a className="hover:text-gray-900" href="https://github.com/ankitkhatiwada" aria-label="GitHub"><Github className="h-4 w-4" /></a>
-            <a className="hover:text-gray-900" href="https://www.linkedin.com/in/ankit-khatiwada-4916bb278/" aria-label="LinkedIn"><Linkedin className="h-4 w-4" /></a>
+          <p className="text-xs text-neutral-500">© {year} Ankit Khatiwada. All rights reserved.</p>
+          <div className="flex items-center gap-3 text-neutral-500">
+            <a className="hover:text-black" href="https://github.com/ankitkhatiwada" aria-label="GitHub"><Github className="h-4 w-4" /></a>
+            <a className="hover:text-black" href="https://www.linkedin.com/in/ankit-khatiwada-4916bb278/" aria-label="LinkedIn"><Linkedin className="h-4 w-4" /></a>
           </div>
         </div>
       </footer>
